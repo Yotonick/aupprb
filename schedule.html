@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
-<title>Расписание</title>
+<title>Расписание АУпПРБ</title>
 <script src="https://telegram.org/js/telegram-web-app.js" onerror="void 0"></script>
 <style>
 :root{
@@ -151,10 +151,21 @@ select{appearance:none;-webkit-appearance:none;background:var(--chip);color:var(
 .toast.err{background:#ff4d4f;color:#fff}
 .credit{text-align:center;color:var(--muted);font-size:14px;font-weight:600;padding:6px 0 10px}
 .credit a{color:var(--accent);text-decoration:none;font-weight:800}
+.splash{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .45s,visibility .45s}
+.splash.hide{opacity:0;visibility:hidden}
+.splash svg{filter:drop-shadow(0 18px 40px rgba(79,91,255,.45));animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+.splash b{font-size:26px;font-weight:800;letter-spacing:-.01em;animation:rise .6s .15s both}
+.splash i{font-style:normal;color:var(--muted);font-size:15px;font-weight:600;animation:rise .6s .3s both}
+.splash .ld{width:46px;height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin-top:8px;animation:rise .6s .4s both}
+.splash .ld::after{content:"";display:block;height:100%;width:40%;border-radius:2px;background:var(--accent);animation:ld 1s infinite ease-in-out}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+@keyframes rise{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+@keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
 input[type=file]{display:none}
 </style>
 </head>
 <body>
+<div class="splash" id="splash"><svg viewBox="0 0 120 120" width="112" height="112"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a75ff"/><stop offset="1" stop-color="#3a3fd6"/></linearGradient></defs><rect width="120" height="120" rx="28" fill="url(#g)"/><rect x="24" y="30" width="72" height="68" rx="14" fill="#fff"/><path d="M24 44a14 14 0 0 1 14-14h44a14 14 0 0 1 14 14v8H24z" fill="#ff9f1c"/><rect x="40" y="22" width="7" height="16" rx="3.5" fill="#fff" stroke="#3a3fd6" stroke-width="2"/><rect x="73" y="22" width="7" height="16" rx="3.5" fill="#fff" stroke="#3a3fd6" stroke-width="2"/><g fill="#c9ccf5"><rect x="34" y="62" width="9" height="9" rx="3"/><rect x="55.5" y="62" width="9" height="9" rx="3"/><rect x="77" y="62" width="9" height="9" rx="3"/><rect x="34" y="79" width="9" height="9" rx="3"/><rect x="77" y="79" width="9" height="9" rx="3"/></g><rect x="55.5" y="79" width="9" height="9" rx="3" fill="#33d63c"/></svg><b>Расписание АУпПРБ</b><i>Учебные занятия под рукой</i><div class="ld"></div></div>
 <div id="app">
   <section class="view on" id="v-sch">
     <header>
@@ -858,6 +869,7 @@ const q=new URLSearchParams(location.search).get('date');
 if(q&&/^\d{4}-\d{2}-\d{2}$/.test(q))sel=fromKey(q);
 renderAll();
 setInterval(()=>{if(view==='sch'&&key(sel)===key(new Date())&&!ov.classList.contains('on'))renderPanels(true)},30000);
+setTimeout(()=>{const sp=document.getElementById('splash');sp.classList.add('hide');setTimeout(()=>sp.remove(),600)},1100);
 window.__app={get sel(){return sel},go,show};
 })();
 </script>
