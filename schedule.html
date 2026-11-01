@@ -828,9 +828,9 @@ function renderSettings(){
     '<div class="kv"><span>Занятий у группы</span><span>'+total+'</span></div>'+
     (data.meta&&data.meta.year?'<div class="kv"><span>Учебный год</span><span>'+esc(data.meta.year)+(data.meta.semester?', '+esc(data.meta.semester)+' сем.':'')+'</span></div>':'')+
     '<div class="kv"><span>Загружено</span><span>'+(data.isDefault?'—':fmtDate(data.loaded))+'</span></div></div>'+
-    '<div style="margin-top:14px"><button class="btn p" id="upBtn">Загрузить новое расписание (.xlsx)</button>'+(data.isDefault?'':'<button class="btn s" id="rstBtn">Вернуть встроенное расписание</button>')+'</div>'+
-    '<p class="info" style="margin-top:12px">Подойдёт файл с той же структурой, что и исходный. Данные хранятся только на этом устройстве.</p></div>'+
-  '<div class="credit">Создано <a href="https://t.me/yotonick" id="credit">@yotonick</a></div>';
+    '<div style="margin-top:14px"><button class="btn p" id="upBtn">Загрузить новое расписание (.xlsx)</button>'+(data.isDefault?'':'<button class="btn s" id="rstBtn">Вернуть исходное расписание</button>')+'</div>'+
+    '<p class="info" style="margin-top:12px">Подойдёт файл с той же структурой(то есть то, что нам кидают методы. Новые загруженные данные хранятся только на этом устройстве(в остальном - берутся с сервера)</p></div>'+
+  '<div class="credit">Dev: <a href="https://t.me/yotonick" id="credit">@yotonick</a></div>';
   $('#set').scrollTop=sc;
   $('#grpSel').onchange=e=>{settings.group=e.target.value;saveSettings();buildIndex();renderAll();renderSettings()};
   $('#thSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;settings.theme=b.dataset.v;saveSettings();applyTheme();renderSettings()};
